@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float JumpBufferMax = 0;
     private float JumpBuffer;
 
+    private bool Grounded = false;
+
     private float XDirection;
 
     private enum MovementState { idle, running, jumping, falling }
@@ -51,28 +53,41 @@ public class PlayerMovement : MonoBehaviour
 
         sprite.flipX = XDirection == 0 ? sprite.flipX : XDirection < 0;
     }
-    
-    void Update()
+
+    private void HandleJumping()
     {
-        XDirection = Input.GetAxis("Horizontal");
-
-        //Debug.Log();
-
-        if (!(rb.velocity.y > 0.2f) && Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0, Vector2.down, 0.1f, ground))
+        if (Grounded)
         {
             HangTime = HangTimeMax;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && HangTime > 0f)
+        if (Input.GetKeyDown(KeyCode.W))
         {
+            JumpBuffer = JumpBufferMax;
             // JUMP!
+        }
+
+        if (JumpBuffer > 0f && HangTime > 0f)
+        {
+            JumpBuffer = 0f;
             HangTime = 0f;
             rb.velocity = new Vector2(rb.velocity.x, JumpPower);
 
             jumpSound.Play();
         }
 
+        JumpBuffer -= Time.deltaTime;
         HangTime -= Time.deltaTime;
+    }
+    
+    void Update()
+    {
+        XDirection = Input.GetAxis("Horizontal");
+
+
+        Grounded = Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0, Vector2.down, 0.1f, ground);
+
+        HandleJumping();
 
         UpdateAnimations();
     }
