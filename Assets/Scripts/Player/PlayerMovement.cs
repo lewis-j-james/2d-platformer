@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float JumpBufferMax = 0;
     private float JumpBuffer;
+
+    [SerializeField] private int AirJumpsMax = 1;
+    public int AirJumps = 0;
 
     private bool Grounded = false;
 
@@ -64,20 +68,30 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             JumpBuffer = JumpBufferMax;
-            // JUMP!
+            if (AirJumps > 0)
+            {
+                AirJumps -= 1;
+                Jump();
+            }
         }
 
         if (JumpBuffer > 0f && HangTime > 0f)
         {
-            JumpBuffer = 0f;
-            HangTime = 0f;
-            rb.velocity = new Vector2(rb.velocity.x, JumpPower);
-
-            jumpSound.Play();
+            Jump();
         }
 
         JumpBuffer -= Time.deltaTime;
         HangTime -= Time.deltaTime;
+    }
+
+    private void Jump()
+    {
+        // JUMP!
+        JumpBuffer = 0f;
+        HangTime = 0f;
+        rb.velocity = new Vector2(rb.velocity.x, JumpPower);
+
+        jumpSound.Play();
     }
     
     void Update()
@@ -86,6 +100,10 @@ public class PlayerMovement : MonoBehaviour
 
 
         Grounded = Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0, Vector2.down, 0.1f, ground);
+        if (Grounded)
+        {
+            AirJumps = AirJumpsMax;
+        }
 
         HandleJumping();
 
