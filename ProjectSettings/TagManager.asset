@@ -50,3 +50,6 @@ TagManager:
   - name: Terrain
     uniqueID: 2631300521
     locked: 0
+  - name: Traps
+    uniqueID: 3403459791
+    locked: 0
