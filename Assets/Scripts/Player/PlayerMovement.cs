@@ -14,9 +14,12 @@ public class PlayerMovement : MonoBehaviour
 
     public float JumpPower;
     public float MoveSpeed;
-    public float HangTime;
 
-    [SerializeField] private float HangCooldown = 0;
+    [SerializeField] private float HangTimeMax = 0;
+    private float HangTime;
+
+    [SerializeField] private float JumpBufferMax = 0;
+    private float JumpBuffer;
 
     private float XDirection;
 
@@ -57,19 +60,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (!(rb.velocity.y > 0.2f) && Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0, Vector2.down, 0.1f, ground))
         {
-            HangCooldown = HangTime;
+            HangTime = HangTimeMax;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && HangCooldown > 0f)
+        if (Input.GetKeyDown(KeyCode.W) && HangTime > 0f)
         {
             // JUMP!
-            HangCooldown = 0f;
+            HangTime = 0f;
             rb.velocity = new Vector2(rb.velocity.x, JumpPower);
 
             jumpSound.Play();
         }
 
-        HangCooldown -= Time.deltaTime;
+        HangTime -= Time.deltaTime;
 
         UpdateAnimations();
     }
