@@ -7,6 +7,7 @@ public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private GameObject CollectPrefab;
     [SerializeField] private TextMeshProUGUI MelonText;
+    private PlayerMovement pm;
 
     public void UpdateCounter()
     {
@@ -25,10 +26,18 @@ public class ItemCollector : MonoBehaviour
             GameManager.Instance.Melons++;
             UpdateCounter();
         }
+        else if (collision.gameObject.CompareTag("JumpBoost"))
+        {
+            collision.gameObject.GetComponent<Animator>().SetTrigger("Collect");
+
+            pm.AirJumps++;
+            UpdateCounter();
+        }
     }
 
     private void Start()
     {
+        pm = GetComponent<PlayerMovement>();
         UpdateCounter();
     }
 }

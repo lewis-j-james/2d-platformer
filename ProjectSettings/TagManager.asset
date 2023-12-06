@@ -8,6 +8,7 @@ TagManager:
   - Trap
   - Win
   - Wind
+  - JumpBoost
   layers:
   - Default
   - TransparentFX
