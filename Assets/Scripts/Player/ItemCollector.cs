@@ -6,13 +6,7 @@ using UnityEngine;
 public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private GameObject CollectPrefab;
-    [SerializeField] private TextMeshProUGUI MelonText;
     private PlayerMovement pm;
-
-    public void UpdateCounter()
-    {
-        MelonText.text = "Melons: " + GameManager.Instance.Melons.ToString();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,20 +18,18 @@ public class ItemCollector : MonoBehaviour
             Destroy(Collect, 0.5f);
 
             GameManager.Instance.Melons++;
-            UpdateCounter();
+            GameInterface.Instance.UpdateMelonCounter();
         }
         else if (collision.gameObject.CompareTag("JumpBoost"))
         {
             collision.gameObject.GetComponent<Animator>().SetTrigger("Collect");
 
-            pm.AirJumps++;
-            UpdateCounter();
+            pm.AddJump();
         }
     }
 
     private void Start()
     {
         pm = GetComponent<PlayerMovement>();
-        UpdateCounter();
     }
 }

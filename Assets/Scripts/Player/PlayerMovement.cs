@@ -34,8 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private AudioSource jumpSound;
 
-    [SerializeField] private Transform JumpCounterPanel;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -74,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 AirJumps -= 1;
                 Jump();
+
+                GameInterface.Instance.UpdateJumpCounter();
             }
         }
 
@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
     public void AddJump(int count = 1)
     {
         AirJumps += count;
+        GameInterface.Instance.UpdateJumpCounter();
     }
     
     void Update()
@@ -110,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
         if (Grounded)
         {
             AirJumps = AirJumpsMax;
+            GameInterface.Instance.UpdateJumpCounter();
         }
 
         HandleJumping();

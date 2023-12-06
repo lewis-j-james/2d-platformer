@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 1135124336167208141}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,7 @@ MonoBehaviour:
   AirJumpsMax: 1
   AirJumps: 0
   jumpSound: {fileID: 8187676320388414841}
+  JumpCounterPanel: {fileID: 0}
 --- !u!95 &5333022207863230710
 Animator:
   serializedVersion: 4

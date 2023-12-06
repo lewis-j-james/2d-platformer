@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 2.unity
     guid: 9ad7da9ace7682a42b6e84d718606b18
+  - enabled: 1
+    path: Assets/Scenes/Zoo.unity
+    guid: 2b85ad151b22fbc40a593dd612d34ba4
   m_configObjects: {}
