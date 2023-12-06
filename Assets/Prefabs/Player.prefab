@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8055743431099925532}
   - component: {fileID: 8187676320388414841}
   - component: {fileID: 2361978079685326396}
+  - component: {fileID: 1135124336167208141}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -158,9 +159,9 @@ MonoBehaviour:
   JumpPower: 16
   MoveSpeed: 12
   HangTimeMax: 0.1
-  HangTime: 0
   JumpBufferMax: 0.1
-  JumpBuffer: 0
+  AirJumpsMax: 1
+  AirJumps: 0
   jumpSound: {fileID: 8187676320388414841}
 --- !u!95 &5333022207863230710
 Animator:
@@ -413,3 +414,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1135124336167208141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333022207863230668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee37caeb2d0e5e4da94d9c5593d28d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
