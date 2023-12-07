@@ -67,8 +67,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            JumpBuffer = JumpBufferMax;
-            if (AirJumps > 0)
+            if (Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0, Vector2.down, 1f, ground))
+            {
+                JumpBuffer = JumpBufferMax;
+            }
+            else if (AirJumps > 0)
             {
                 AirJumps -= 1;
                 Jump();
