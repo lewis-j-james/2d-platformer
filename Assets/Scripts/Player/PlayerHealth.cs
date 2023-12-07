@@ -42,7 +42,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.Instance.Restart();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

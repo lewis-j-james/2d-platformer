@@ -26,6 +26,6 @@ public class Checkpoint : MonoBehaviour
     public void Win()
     {
         Debug.Log("Loading Scene");
-        SceneManager.LoadScene(NextScene);
+        GameManager.Instance.GoToLevel(NextScene);
     }
 }
